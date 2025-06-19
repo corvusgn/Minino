@@ -44,6 +44,10 @@ static char** split_text(const char* text, uint16_t* num_lines) {
     if (text[i] == '\n' || text[i] == '\0') {
       lines[current_line] = (char*) malloc((line_len + 1) * sizeof(char));
       if (!lines[current_line]) {
+        for (int j = 0; j < current_line; j++) {
+          free(lines[j]);
+        }
+        free(lines);
         return NULL;
       }
 
@@ -60,6 +64,10 @@ static char** split_text(const char* text, uint16_t* num_lines) {
     if (line_len >= MAX_LINE_LENGTH) {
       lines[current_line] = (char*) malloc((line_len + 1) * sizeof(char));
       if (!lines[current_line]) {
+        for (int j = 0; j < current_line; j++) {
+          free(lines[j]);
+        }
+        free(lines);
         return NULL;
       }
 
